@@ -62,7 +62,8 @@ def ejscreen_cal(input_csv, output_csv, output_lookup, to_featureclass = False, 
     source_df = pd.read_csv(input_csv, usecols=(col_names.info_names + col_names.data_names), dtype= {"ID": str})
 
     #import extra fields to add back at end
-    extra_df = pd.read_csv(input_csv, usecols=col_names.extra_cols) 
+    if len(col_names.extra_cols) > 0:
+        extra_df = pd.read_csv(input_csv, usecols=col_names.extra_cols) 
 
     #calculate percentiles for socioeconomic and pollution & sources
     indicator_pctiles, indicator_lookup = percentileCal(source_df, output = False) 
@@ -77,16 +78,19 @@ def ejscreen_cal(input_csv, output_csv, output_lookup, to_featureclass = False, 
     ejscreen_full = calBinTxt(ejscreen_pctiles, output=False) 
 
     #add extra columns back in
-    ejscreen_full = pd.concat([ejscreen_full, extra_df], axis=1) 
+    if len(col_names.extra_cols) > 0:
+        ejscreen_full = pd.concat([ejscreen_full, extra_df], axis=1) 
 
-    index_names_2f = [i for i in col_names.cols_all if i.startswith('P_D2_')]
-    index_names_5f = [i for i in col_names.cols_all if i.startswith('P_D5_')]
+    index_names_2f = [i for i in col_names.index_names if i.startswith('P_D2_')]
+    index_names_5f = [i for i in col_names.index_names if i.startswith('P_D5_')]
 
     #count how many 2 factor EJ Indexes exceed the 80th percentile
     ejscreen_full['EXCEED_COUNT_80'] = ejscreen_full[index_names_2f].ge(80).sum(axis=1) 
     
     #count how many 5 factor EJ Indexes exceed the 80th percentile
     ejscreen_full['EXCEED_COUNT_80_SUPP'] = ejscreen_full[index_names_5f].ge(80).sum(axis=1) 
+    
+    #combine the two lookup tables
     ejscreen_lookup = pd.concat([indicator_lookup, index_lookup], axis=1)
 
     #put columns in correct order
@@ -132,7 +136,8 @@ def ejscreenState_cal(input_csv, output_csv, output_lookup, to_featureclass = Fa
     source_df = pd.read_csv(input_csv, usecols=(col_names.info_names + col_names.data_names), dtype= {"ID": str})  
 
     #import extra fields to add back at end
-    extra_df = pd.read_csv(input_csv, usecols=col_names.extra_cols) 
+    if len(col_names.extra_cols) > 0:
+        extra_df = pd.read_csv(input_csv, usecols=col_names.extra_cols) 
 
     #calculate percentiles for socioeconomic and pollution & sources
     indicator_pctiles, indicator_lookup = percentileCalState(source_df, output = False) 
@@ -147,13 +152,14 @@ def ejscreenState_cal(input_csv, output_csv, output_lookup, to_featureclass = Fa
     ejscreen_full = calBinTxt(ejscreen_pctiles, output=False) 
 
     #add extra columns back in
-    ejscreen_full = pd.concat([ejscreen_full, extra_df], axis=1) 
+    if len(col_names.extra_cols) > 0:
+        ejscreen_full = pd.concat([ejscreen_full, extra_df], axis=1) 
 
     #get 2 factor percentile columns
-    index_names_2f = [i for i in col_names.cols_all if i.startswith('P_D2_')] 
+    index_names_2f = [i for i in col_names.index_names if i.startswith('P_D2_')] 
     
     #get 5 factor percentiles columns
-    index_names_5f = [i for i in col_names.cols_all if i.startswith('P_D5_')] 
+    index_names_5f = [i for i in col_names.index_names if i.startswith('P_D5_')] 
 
     #count how many 2 factor EJ Indexes exceed the 80th percentile
     ejscreen_full['EXCEED_COUNT_80'] = ejscreen_full[index_names_2f].ge(80).sum(axis=1) 
