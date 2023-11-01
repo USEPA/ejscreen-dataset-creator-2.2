@@ -1,3 +1,6 @@
+#This file is used to define the column names for the import and export datasets.
+#The values do not need to be altered by the user.
+
 #Columns containing identifying information as well as data fields for which percentiles will NOT be calculated
 #These columns will appear at the beginning of the output dataset. Add columns you want to appear at the end of the dataset to `extra_cols`
 info_names = ["ID",

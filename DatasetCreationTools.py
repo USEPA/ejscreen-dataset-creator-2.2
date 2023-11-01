@@ -1,5 +1,5 @@
-#-------------------------------------------------------------------------------
-# Name:        ejTools
+#****************************************************************************************
+# Name:        DatasetCreationTools
 # Purpose:     Provide a group of functions to automate the creation of the EJScreen dataset
 #
 # Author:      SAIC, EPA OMS Contractor
@@ -19,7 +19,7 @@
 #   math: Used to determine if a value is not a number. 
 #   os.path: Used to get directory when exporting spatial dataset
 #
-#-------------------------------------------------------------------------------
+#****************************************************************************************
 
 
 import pandas as pd 
