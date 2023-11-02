@@ -1,12 +1,12 @@
-import DatasetCreationTools
+import EJScreenTool
 import sys
 
 def main(usa_st, input_table, output_data_csv, output_lookup, to_gdb, source_geom, output_fc, schema):
 
     if usa_st == 1:
-        DatasetCreationTools.ejscreen_cal(input_table, output_data_csv, output_lookup, to_gdb, source_geom, output_fc, schema)
+        EJScreenTool.ejscreen_cal(input_table, output_data_csv, output_lookup, to_gdb, source_geom, output_fc, schema)
     if usa_st == 2:
-        DatasetCreationTools.ejscreenState_cal(input_table, output_data_csv, output_lookup, to_gdb, source_geom, output_fc, schema)
+        EJScreenTool.ejscreenState_cal(input_table, output_data_csv, output_lookup, to_gdb, source_geom, output_fc, schema)
 
     print("Complete")
 
