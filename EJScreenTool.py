@@ -11,13 +11,13 @@
 #   pandas: pandas dataframes provide a simple and easy way to read the input data and build the new EJScreen tables
 #   numpy: numpy functions are used to generate percentiles for the lookup tables
 #   col_names: a python file containing lists that together comprise all of the columns in teh EJScreen dataset
-#   arcgis: required to import feature class as a pandas dataframe
 #   warnings: used to disable 2 specific warning messages that would otherwise be output to the console hundreds of times. Warnings being ignored are:
 #       1. Letting us know when an entire column in percentile calculationis NA. 
 #       2. Pandas making suggestions on how to accomplish a certain task.
-#   arcpy: Batch Update Field tool is used to set field order, datatypes, and aliases of final feature class
 #   math: Used to determine if a value is not a number. 
 #   os.path: Used to get directory when exporting spatial dataset
+#   arcgis: required to import feature class as a pandas dataframe. This package is only imported if you attempt to export the dataset to an ESRI feature class.
+#   arcpy: Batch Update Field tool is used to set field order, datatypes, and aliases of final feature class. This package is only imported if you attempt to export the dataset to an ESRI feature class.
 #
 #****************************************************************************************
 
@@ -25,11 +25,11 @@
 import pandas as pd 
 import numpy as np
 import col_names
-from arcgis import GeoAccessor, GeoSeriesAccessor
 import warnings
-import arcpy
 import math
 import os.path
+#import arcpy
+#from arcgis import GeoAccessor, GeoSeriesAccessor
 
 #-------------------------------------------------------------------------------
 # Name:        ejscreen_cal
@@ -56,7 +56,13 @@ def ejscreen_cal(input_csv, output_csv, output_lookup, to_featureclass = False, 
 
     #eliminates warnings that have no effect on results
     warnings.simplefilter(action='ignore', category=pd.errors.PerformanceWarning) 
-    warnings.filterwarnings("ignore", message="All-NaN slice encountered") 
+    warnings.filterwarnings("ignore", message="All-NaN slice encountered")
+
+    #these imports are done here to allow for users without an ArcGIS Pro installation to still generate the csv dataset
+    if to_featureclass == True:
+        import arcpy
+        from arcgis import GeoAccessor, GeoSeriesAccessor
+
 
     #import dataset
     source_df = pd.read_csv(input_csv, usecols=(col_names.info_names + col_names.data_names), dtype= {"ID": str})
@@ -95,7 +101,7 @@ def ejscreen_cal(input_csv, output_csv, output_lookup, to_featureclass = False, 
 
     #put columns in correct order
     ejscreen_full = ejscreen_full[col_names.cols_all] 
-    
+        
     ejscreen_full.to_csv(output_csv)
     ejscreen_lookup.to_excel(output_lookup)
 
@@ -130,7 +136,12 @@ def ejscreenState_cal(input_csv, output_csv, output_lookup, to_featureclass = Fa
     #eliminates a warning that has no effect on results
     warnings.simplefilter(action='ignore', category=pd.errors.PerformanceWarning) 
     #eliminates a warning that has no effect on results
-    warnings.filterwarnings("ignore", message="All-NaN slice encountered") 
+    warnings.filterwarnings("ignore", message="All-NaN slice encountered")
+
+    #these imports are done here to allow for users without an ArcGIS Pro installation to still generate the csv dataset
+    if to_featureclass == True:
+        import arcpy
+        from arcgis import GeoAccessor, GeoSeriesAccessor
 
     #import dataset
     source_df = pd.read_csv(input_csv, usecols=(col_names.info_names + col_names.data_names), dtype= {"ID": str})  
