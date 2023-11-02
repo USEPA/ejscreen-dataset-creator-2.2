@@ -449,61 +449,6 @@ def getBin(pct):
         else:
             return 1
 
-#-------------------------------------------------------------------------------
-# Name:        exceedance
-# Purpose:     Generates an ejscreen exceedance dataset.
-#
-# Author:      SAIC, EPA OMS Contractor
-#
-# Created:     08/31/2023
-# Updated:     08/31/2023
-# 
-# Parameters:
-#   input_csv -  Input complete EJScreen dataset.
-#   output_2fa - path to output csv that will contain output 2 factor exceedance dataset.
-#   output_5fa - path to output csv that will contain output 5 factor exceedance dataset.
-#   output - Required. If False, csv output will not be written.
-# 
-# Returns:
-#   2 data frames. One containing 2 factor exceedances and one containing 5 factor exceedances. 
-#-------------------------------------------------------------------------------
-
-
-def exceedance(input_csv, output_2fa = "", output_5fa = "", output = False):
-
-    #build column list that will be used in exceedance datasets
-    index_percentile_names_2f = [i for i in col_names.cols_all if i.startswith('P_D2_')]
-    index_percentile_names_5f = [i for i in col_names.cols_all if i.startswith('P_D5_')] 
-
-    exceedance_2fa_columns = ["ID", 'ST_ABBREV', "DEMOGIDX_2", "P_DEMOGIDX_2"] + index_percentile_names_2f
-    exceedance_5fa_columns = ["ID", 'ST_ABBREV', "DEMOGIDX_5", "P_DEMOGIDX_5"] + index_percentile_names_5f
-    
-    
-    #import EJ Index percentiles
-    df_2fa = pd.read_csv(input_csv, usecols=exceedance_2fa_columns, dtype= {"ID": str}) 
-    
-    #import Supplemental Index percentiles
-    df_5fa = pd.read_csv(input_csv, usecols=exceedance_5fa_columns, dtype= {"ID": str}) 
-
-    
-    #generate column names for exceedance dataset
-    for i in range(0,101): 
-        print(i)
-        if i < 10:
-            colname = "P0" + str(i)
-        else:
-            colname = "P" + str(i)
-        
-        #find how many of the indexes are equal to a given percentile between 0 and 100
-        df_2fa[colname] = (df_2fa.iloc[:, 1:14] == i).sum(axis=1) 
-        df_5fa[colname] = (df_5fa.iloc[:, 1:14] == i).sum(axis=1)
-    
-    if(output == True):
-        df_2fa.to_csv(output_2fa)
-        df_5fa.to_csv(output_5fa)
-
-    return(df_2fa, df_5fa)
-
 
 #-------------------------------------------------------------------------------
 # Name:        exportSpatial

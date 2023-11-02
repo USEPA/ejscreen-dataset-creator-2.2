@@ -1,7 +1,7 @@
 # EJScreenDatasetCreator
 
 ## Description
-`EJScreenDatasetCreator` is a python tool that automates the calculation of EJScreen indexes, percentiles, bin/text fields, and lookup tables to create the production EJScreen 2023 dataset. You also have the option join the resultant table to matching block groups or tracts to create a feature class within an ESRI File Geodatabase.
+`EJScreenDatasetCreator` is a python tool that automates the calculation of EJScreen indexes(`calIndexes()`), percentiles(`percentileCal()`/`percentileCalState()`), bin/text fields(`calBinTxt()`), and lookup tables to create the production EJScreen 2023 dataset. You also have the option join the resultant table to matching block groups or tracts to create a feature class within an ESRI File Geodatabase(`exportSpatial`).
 
 ## Python Package Requirements
 All required packages come preinstalled in the default ArcGIS Pro 3.1 environment, which includes python 3. The following are the packages and versions used in the development of this tool. 
@@ -44,9 +44,6 @@ A csv file  containing the required columns to generate an EJScreen dataset. The
 |  | PTSDF | |
 |  | UST | |
 |  | PWDIS | |
-
-If you wish to add or remove columns from the final output, you can edit the list values in  `col_names.py`. 
-Using the default values, you can use the [production dataset](https://www.epa.gov/ejscreen/download-ejscreen-data) as valid input. 
 
 ## How to Use
 
