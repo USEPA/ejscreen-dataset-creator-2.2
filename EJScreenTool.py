@@ -58,12 +58,6 @@ def ejscreen_cal(input_csv, output_csv, output_lookup, to_featureclass = False, 
     warnings.simplefilter(action='ignore', category=pd.errors.PerformanceWarning) 
     warnings.filterwarnings("ignore", message="All-NaN slice encountered")
 
-    #these imports are done here to allow for users without an ArcGIS Pro installation to still generate the csv dataset
-    if to_featureclass == True:
-        import arcpy
-        from arcgis import GeoAccessor, GeoSeriesAccessor
-
-
     #import dataset
     source_df = pd.read_csv(input_csv, usecols=(col_names.info_names + col_names.data_names), dtype= {"ID": str})
 
@@ -469,6 +463,9 @@ def getBin(pct):
 #-------------------------------------------------------------------------------
 
 def exportSpatial(areas, data_df, output_fc, schema = "", join_field = "ID"):
+
+    import arcpy
+    from arcgis import GeoAccessor, GeoSeriesAccessor
 
     
     print("Reading Spatial Dataset...")

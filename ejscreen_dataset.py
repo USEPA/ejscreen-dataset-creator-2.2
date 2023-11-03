@@ -44,7 +44,7 @@ if __name__ == '__main__':
         sys.exit("`level` must have a value of either 1 or 2")
     
     if output_to_featureclass == True:
-        if not geometry_featureclass_path or not output_featureclass_path or not schema_csv_pathv:
+        if not geometry_featureclass_path or not output_featureclass_path or not schema_csv_path:
             sys.exit("If outputing to featureclass, all parameters must have a value")
     
     main(level, 
