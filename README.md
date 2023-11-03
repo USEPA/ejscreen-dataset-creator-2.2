@@ -17,7 +17,12 @@ All required packages come preinstalled in the default ArcGIS Pro 3.1 environmen
 ArcGIS Pro is required to export the results to an Esri feature class. 
 ## Input Requirements
 
-A csv file that contains the required columns to generate an EJScreen dataset. These column names are designated in `col_names.py`. By default, the following columns are required:
+A csv file that contains the required columns to generate an EJScreen dataset. These column names are designated in `col_names.py` by 3 different lists:
+* Info Names (`info_names`) - columns containing identifying information about the block group or tract as well as demographic information for which percentiles are not calculated
+* Data Names (`data_names`) - columns containing socioeconomic and environmental indicator values for which percentiles will be calculated
+* Extra Columns (`extra_cols`) - columns containing non-demographic information that is typically included at the end of an EJScreen dataset
+
+By default, the following columns are required:
 
 | `col_names.info_names`       | `col_names.data_names`      | `col_names.extra_cols`      |
 | ------------- | ------------- | ------------- |
