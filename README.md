@@ -65,7 +65,7 @@ Before running the tool, open `ejscreen_dataset.py` and edit the following param
 Once the parameters have been updated, run the python file to generate the output.
 
 ## How Tied  Values are Handled for Percentiles:
-Due to the variety of environmental data, an indicator or index often falls between two raw values used to determine the percentile range. In that case, the lower percentile is used. There's no rounding operations, or it can be considered as 'rounding down'. When such interpolation falls on a series of tied values, the lowest percentile out of those percentiles for the tied values is chosen.
+Due to the variety of environmental data, an indicator or index often falls between two raw values used to determine the percentile range. In that case, the lower percentile is used. There are no rounding operations, or it can be considered as 'rounding down'. When such interpolation falls on a series of tied values, the lowest percentile out of those percentiles for the tied values is chosen.
 
 
 ## EPA Disclaimer
