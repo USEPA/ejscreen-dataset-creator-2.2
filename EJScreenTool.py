@@ -1,5 +1,5 @@
 #****************************************************************************************
-# Name:        DatasetCreationTools
+# Name:        EJScreenTool
 # Purpose:     Provide a group of functions to automate the creation of the EJScreen dataset
 #
 # Author:      SAIC, EPA OMS Contractor
@@ -34,11 +34,6 @@ import os.path
 #-------------------------------------------------------------------------------
 # Name:        ejscreen_cal
 # Purpose:     Build EJScreen dataset using US based percentiles.
-#
-# Author:      SAIC, EPA OMS Contractor
-#
-# Created:     08/31/2023
-# Updated:     08/31/2023
 # 
 # Parameters:
 #   input_csv - path to csv file containing EJScreen indicator data and ID
@@ -106,11 +101,6 @@ def ejscreen_cal(input_csv, output_csv, output_lookup, to_featureclass = False, 
 #-------------------------------------------------------------------------------
 # Name:        ejscreenState_cal
 # Purpose:     Build EJScreen dataset using state based percentiles.
-#
-# Author:      SAIC, EPA OMS Contractor
-#
-# Created:     08/31/2023
-# Updated:     08/31/2023
 # 
 # Parameters:
 #   input_csv - path to csv file containing EJScreen indicator data and ID
@@ -194,11 +184,6 @@ def ejscreenState_cal(input_csv, output_csv, output_lookup, to_featureclass = Fa
 #-------------------------------------------------------------------------------
 # Name:        percentileCal
 # Purpose:     Calculate percentile fields and create lookup table at the national level. 
-#
-# Author:      SAIC, EPA OMS Contractor
-#
-# Created:     08/31/2023
-# Updated:     08/31/2023
 # 
 # Parameters:
 #   ejscreen_data_df - dataframe containing EJScreen raw data. Must at least contain the columns designated by column_names parameter
@@ -260,11 +245,6 @@ def percentileCal(ejscreen_data_df, output_csv_percentiles = "", output_xlsx_loo
 #-------------------------------------------------------------------------------
 # Name:        percentileCalState
 # Purpose:     Calculate percentile fields and create lookup table at the state level. 
-#
-# Author:      SAIC, EPA OMS Contractor
-#
-# Created:     08/31/2023
-# Updated:     08/31/2023
 # 
 # Parameters:
 #   ejscreen_data_df - dataframe containing EJScreen raw data. Must at least contain the columns designated by column_names parameter
@@ -364,11 +344,6 @@ def percentileCalState(ejscreen_data_df, output_csv_percentiles = "", output_xls
 #-------------------------------------------------------------------------------
 # Name:        calBinTxt
 # Purpose:     Add Bin and Text fields to dataset based on "P_" percentile fields.
-#
-# Author:      SAIC, EPA OMS Contractor
-#
-# Created:     08/31/2023
-# Updated:     08/31/2023
 # 
 # Parameters:
 #   df - Required. Input data frame containing percentile columns starting with P_.
@@ -447,11 +422,6 @@ def getBin(pct):
 #-------------------------------------------------------------------------------
 # Name:        exportSpatial
 # Purpose:     Joins data frame to geometry and writes to geodatabase
-#
-# Author:      SAIC, EPA OMS Contractor
-#
-# Created:     08/31/2023
-# Updated:     08/31/2023
 # 
 # Parameters:
 #   areas - Path to feature class containing geometry being joined to data frame
@@ -496,11 +466,6 @@ def exportSpatial(areas, data_df, output_fc, schema = "", join_field = "ID"):
 #-------------------------------------------------------------------------------
 # Name:        getPctile
 # Purpose:     Internal function used for calulating percentiles for each row of a lookup table
-#
-# Author:      SAIC, EPA OMS Contractor
-#
-# Created:     08/31/2023
-# Updated:     08/31/2023
 # 
 #-------------------------------------------------------------------------------
 
@@ -530,11 +495,6 @@ def getPctile(lookup_list, data_value):
 #-------------------------------------------------------------------------------
 # Name:        calIndexes
 # Purpose:     Internal function used for calulating 2 factor and 5 factor index raw values.
-#
-# Author:      SAIC, EPA OMS Contractor
-#
-# Created:     08/31/2023
-# Updated:     08/31/2023
 # 
 #-------------------------------------------------------------------------------
 
